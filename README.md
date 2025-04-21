@@ -94,5 +94,5 @@ This project is licensed under the MIT License.
 ## 📬 Connect with Me
 
 **Vishaal S (aka 0Glitchx)**  
-🔗 Twitter/X: [@0xvishh]([https://x.com/0xvishh])  
+🔗 Twitter/X: [[@0xvishh]([https://x.com/0xvishh])]
 🔗 GitHub: [[@0Glitchx](https://github.com/vishaalS7)]
