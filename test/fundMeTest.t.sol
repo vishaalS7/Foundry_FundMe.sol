@@ -4,30 +4,34 @@ pragma solidity ^0.8.18;
 
 import {Test, console} from "forge-std/Test.sol";
 import {FundMe} from "../src/FundMe.sol";
-import {DeployFundMe} from "../script/DeployFundMe.s.sol";
-import {PriceConverter} from "../src/PriceConverter.sol";
+import {DeployFundMe} from "../Script/DeployFundMe.s.sol";
 
-contract fundMeTest is Test {
+contract FundMeTest is Test {
+    // This contract is used to test the FundMe contract.
+    // It will be used to deploy the FundMe contract and call its functions.
+    // It will also be used to test the PriceConverter library.
+
+    // Note: The actual tests would be written using a testing framework like Foundry or Hardhat.
+    // This is just a placeholder for the test contract.
     FundMe fundMe;
 
     function setUp() external {
-        //fundMe = new FundMe(0x694AA1769357215DE4FAC081bf1f309aDC325306);
         DeployFundMe deployFundMe = new DeployFundMe();
         fundMe = deployFundMe.run();
     }
 
-    function testMinimumDollarIsFive() public view {
+    function testMinimumUsdIsFiveDollars() public view {
         assertEq(fundMe.MINIMUM_USD(), 5e18);
+        // Check that the minimum USD value is set correctly.
     }
 
-    function testOwnerisMsgSender() public view {
-        console.log(fundMe.i_owner());
-        console.log(msg.sender);
-        assertEq (fundMe.i_owner(), msg.sender);
+    function testOwnerIsSetCorrectly() public view {
+        assertEq(fundMe.i_owner(), msg.sender);
+        // Check that the owner is set to the contract deployer.
     }
 
-    function testGetVersionIsAccurate() public view{ 
-        uint256 version = fundMe.getVersion(); 
-        assertEq(version, 4);
+    function testGetVersion() public view {
+        uint256 version = fundMe.getVersion();
+        assertEq(version, 6);
     }
 }

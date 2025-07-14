@@ -1,98 +1,66 @@
+## Foundry
 
-# FundMe - Solidity Smart Contract Project
+**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
 
-Welcome to the FundMe project! This repository contains a smart contract and supporting scripts to simulate a decentralized crowdfunding platform, where users can fund the contract in ETH, and only the owner can withdraw the funds.
+Foundry consists of:
 
-This project was built while following [Patrick Collins' Cyfrin Updraft course](https://github.com/Cyfrin/updraft), which focuses on mastering smart contract development using **Foundry**.
+-   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
+-   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
+-   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
+-   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
 
----
+## Documentation
 
-## 🚀 What I Learned
+https://book.getfoundry.sh/
 
-### ✅ Core Concepts
-- **Smart Contract Development** using Solidity
-- **Interfacing with Chainlink Price Feeds** using `AggregatorV3Interface`
-- Writing **modular and reusable code** with `library` and `HelperConfig`
+## Usage
 
-### 🔧 Tools & Technologies
-- **Foundry** for compiling, testing, and deploying
-- **Forge** for unit and integration tests
-- **Mock Contracts** for simulating real-world scenarios
-- **Deploy Scripts** to automate contract deployment
-- **Chainlink Price Feeds** (Mock and Live via Forking)
-- **HelperConfig** to abstract environment configuration
-- **Forge Coverage** for test coverage analysis
+### Build
 
----
-
-## 🏗️ Project Structure
-
-```
-FundMe/
-├── src/
-│   ├── FundMe.sol            # Main contract
-│   ├── PriceConverter.sol    # Library for price conversions
-├── script/
-│   └── DeployFundMe.s.sol    # Deployment script
-├── test/
-│   ├── FundMeTest.t.sol      # Unit and integration tests
-├── foundry.toml              # Foundry configuration
-├── HelperConfig.s.sol        # Handles config for mock vs live
-├── MockV3Aggregator.sol      # Chainlink mock price feed
+```shell
+$ forge build
 ```
 
----
+### Test
 
-## 🧪 Testing
-
-- **Unit Tests:** Test the contract logic (funding, withdrawal, modifiers, etc.)
-- **Fork Tests:** Simulate real mainnet/testnet conditions using a forked blockchain
-- **Mock Tests:** Use mocked Chainlink Price Feeds for local testing
-- **Gas Reporting & Coverage:** Enabled via `forge coverage`
-
-### Run Tests:
-```bash
-forge test --gas-report
+```shell
+$ forge test
 ```
 
-### Run Coverage:
-```bash
-forge coverage
+### Format
+
+```shell
+$ forge fmt
 ```
 
----
+### Gas Snapshots
 
-## 🌍 Supported Networks
+```shell
+$ forge snapshot
+```
 
-- **Anvil (local)**
-- **Sepolia (testnet)** *(via Forking or RPC URL)*
+### Anvil
 
----
+```shell
+$ anvil
+```
 
-## 🧠 Key Takeaways
+### Deploy
 
-- Learned how to **mock external dependencies** like Chainlink oracles.
-- Gained experience in using **Foundry’s fork mode** for real-world testing.
-- Understood the importance of **clean contract design** and **modularity**.
-- Practiced writing **robust test suites** for better contract security.
-- Improved understanding of **gas optimizations** and code coverage.
+```shell
+$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
+```
 
----
+### Cast
 
-## 📜 License
+```shell
+$ cast <subcommand>
+```
 
-This project is licensed under the MIT License.
+### Help
 
----
-
-## 🙌 Acknowledgements
-
-- Special thanks to [@PatrickAlphaC](https://github.com/PatrickAlphaC) for his excellent teaching in the [Cyfrin Updraft](https://github.com/Cyfrin/updraft) series.
-
----
-
-## 📬 Connect with Me
-
-**Vishaal S (aka 0Glitchx)**  
-🔗 Twitter/X: [[@0xvishh](https://x.com/0xvishh)] 
-🔗 GitHub: [[@0Glitchx](https://github.com/vishaalS7)]
+```shell
+$ forge --help
+$ anvil --help
+$ cast --help
+```

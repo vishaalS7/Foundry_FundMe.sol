@@ -2,8 +2,8 @@
 
 pragma solidity ^0.8.18;
 
-import {Script} from "forge-std/Script.sol";
-import {MockV3Aggregator} from "../test/mock/MockV3Aggregator.sol";
+import {Script} from "forge-std/script.sol";
+import {MockV3Aggregator} from "../test/mocks/mockV3Aggregator.sol";
 
 contract HelperConfig is Script {
     NetworkConfig public activeNetworkConfig;
@@ -11,39 +11,42 @@ contract HelperConfig is Script {
     uint8 public constant DECIMALS = 8;
     int256 public constant INITIAL_PRICE = 2000e8;
 
+    struct NetworkConfig {
+        address priceFeed; //eth/usd priceFeed address
+    }
+
     constructor() {
         if (block.chainid == 11155111) {
-            activeNetworkConfig = getSepoliaEthConfig();
+            activeNetworkConfig = getSeploiaEthConfig();
         } else if (block.chainid == 1) {
-            activeNetworkConfig = getaMainNetEthConfig();
+            activeNetworkConfig = getMainNetEthConfig();
         } else {
-            activeNetworkConfig = getorCreateAnvilEthConfig();
+            activeNetworkConfig = getAnvilEthConfig();
         }
     }
 
-    struct NetworkConfig {
-        address priceFeed; // eth/usd price feed address
+    function getSeploiaEthConfig() public pure returns (NetworkConfig memory) {
+        NetworkConfig memory SepoliaConfig = NetworkConfig({
+            priceFeed: 0x694AA1769357215DE4FAC081bf1f309aDC325306 // Example Sepolia ETH/USD price feed
+        });
+        return SepoliaConfig;
     }
 
-    function getSepoliaEthConfig() public pure returns (NetworkConfig memory) {
-        NetworkConfig memory sepoliaConfig = NetworkConfig({priceFeed: 0x694AA1769357215DE4FAC081bf1f309aDC325306});
-        return sepoliaConfig;
+    function getMainNetEthConfig() public pure returns (NetworkConfig memory) {
+        NetworkConfig memory ethConfig = NetworkConfig({
+            priceFeed: 0x5147eA642CAEF7BD9c1265AadcA78f997AbB9649 // Example Sepolia ETH/USD price feed
+        });
+        return ethConfig;
     }
 
-    function getaMainNetEthConfig() public pure returns (NetworkConfig memory) {
-        NetworkConfig memory mainnetConfig = NetworkConfig({priceFeed: 0x5147eA642CAEF7BD9c1265AadcA78f997AbB9649});
-        return mainnetConfig;
-    }
-
-    function getorCreateAnvilEthConfig() public returns (NetworkConfig memory) {
-        if (activeNetworkConfig.priceFeed != address(0)) {
+    function getAnvilEthConfig() public returns (NetworkConfig memory) {
+        if(activeNetworkConfig.priceFeed != address(0)){
             return activeNetworkConfig;
         }
         vm.startBroadcast();
         MockV3Aggregator mockPriceFeed = new MockV3Aggregator(DECIMALS, INITIAL_PRICE);
         vm.stopBroadcast();
-
-        NetworkConfig memory anvilConfig = NetworkConfig({priceFeed: address(mockPriceFeed)});
-        return anvilConfig;
+        NetworkConfig memory anvilconfig = NetworkConfig({priceFeed: address(mockPriceFeed)});
+        return anvilconfig;
     }
 }
